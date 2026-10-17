@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WorkRadar | Team work, made clear</title>
+<style>
+:root{--navy:#121e34;--blue:#4369eb;--teal:#199b88;--orange:#ef973d;--red:#dc535b;--bg:#f5f7fb;--ink:#222f44;--muted:#65748b;--line:#e2e7f0;--white:#fff}
+*{box-sizing:border-box}body{margin:0;font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:9px;padding:9px 12px;font-weight:650;background:var(--blue);color:#fff}button.secondary{background:#eef2ff;color:var(--blue)}button.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}button.success{background:var(--teal)}button.warn{background:#fff1df;color:#a55d08}
+.app{display:grid;grid-template-columns:225px 1fr;min-height:100vh}.sidebar{background:var(--navy);color:white;padding:24px 14px}.brand{font-size:20px;font-weight:800;letter-spacing:-.5px;padding:4px 10px 26px}.brand span{color:#7f9bff}.nav{display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;color:#bac6dc;margin:4px 0;cursor:pointer}.nav.active,.nav:hover{background:#293c60;color:#fff}.nav b{font-size:16px;width:20px;text-align:center}.side-note{margin:36px 8px 0;color:#aebbd3;font-size:12px}
+main{padding:28px 34px;max-width:1400px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:1.3px;color:var(--blue);text-transform:uppercase}.top h1{font-size:28px;letter-spacing:-.8px;margin:4px 0}.sub{color:var(--muted);margin:0}.avatar{width:38px;height:38px;border-radius:50%;background:#e4eaff;color:var(--blue);display:grid;place-items:center;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 2px 7px #17284906}.stat-label{color:var(--muted);font-size:12px}.stat{font-size:28px;font-weight:800;margin-top:5px;letter-spacing:-1px}.stat small{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0}.ai{margin:16px 0;background:linear-gradient(115deg,#e9efff,#f8faff);border:1px solid #dbe4ff}.ai-head{display:flex;align-items:center;gap:8px;color:var(--blue);font-weight:800;font-size:11px;letter-spacing:.8px}.ai p{font-size:15px;margin:10px 0 12px;max-width:900px}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{padding:5px 8px;border-radius:7px;background:white;color:var(--muted);font-size:11px;font-weight:700}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:25px 0 12px}.section-head h2{margin:0;font-size:17px}.muted{color:var(--muted)}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.toolbar input,.toolbar select,.searchbox{border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:#fff;color:var(--ink)}.feed{display:grid;gap:10px}.task{display:grid;grid-template-columns:8px 1fr auto;gap:14px;align-items:center;padding:15px 16px}.priority-bar{height:44px;border-radius:5px;background:var(--orange)}.task h3{font-size:14px;margin:0 0 4px}.task p{font-size:12px;color:var(--muted);margin:0}.task-actions{display:flex;align-items:center;gap:8px}.badge{display:inline-flex;padding:4px 7px;border-radius:7px;font-size:10px;font-weight:800;background:#fff1df;color:#a55d08}.badge.red{background:#ffe8e9;color:#b92c39}.badge.blue{background:#e7edff;color:#3455c8}.badge.green{background:#e0f7f3;color:#127966}
+.view{display:none}.view.active{display:block}.detail-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:15px}.detail-title{font-size:23px;font-weight:800;letter-spacing:-.6px;margin:8px 0 14px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.meta div{background:#f7f9fc;padding:12px;border-radius:10px}.meta label{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.meta strong{font-size:13px}.empty{padding:50px 20px;text-align:center}.empty .illustration{margin:auto auto 16px;width:70px;height:70px;border-radius:24px;background:#e7edff;color:var(--blue);display:grid;place-items:center;font-size:30px}.toast{position:fixed;right:24px;bottom:24px;background:var(--navy);color:white;padding:12px 18px;border-radius:10px;box-shadow:0 8px 30px #0002;display:none;z-index:10}.small{font-size:11px}.pill-btn{padding:6px 9px;font-size:11px}
+@media(max-width:850px){.app{grid-template-columns:1fr}.sidebar{padding:12px;display:flex;align-items:center;gap:8px;overflow:auto}.brand{padding:5px 10px;white-space:nowrap}.nav{white-space:nowrap;padding:9px}.side-note{display:none}main{padding:20px 14px}.grid{grid-template-columns:1fr}.detail-grid{grid-template-columns:1fr}.task{grid-template-columns:6px 1fr}.task-actions{grid-column:2;flex-wrap:wrap}.top h1{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand">◉ Work<span>Radar</span></div>
+  <div class="nav active" data-view="dashboard"><b>⌂</b> Dashboard</div>
+  <div class="nav" data-view="feed"><b>⚑</b> Priority feed</div>
+  <div class="nav" data-view="search"><b>⌕</b> Search</div>
+  <div class="nav" data-view="empty"><b>◌</b> Empty / error state</div>
+  <div class="side-note">TEAM SPACE<br><strong>Product & Engineering</strong><br><br>Sample data · no live integrations</div>
+</aside>
+<main>
+<header class="top"><div><div class="eyebrow">MONDAY · TEAM OVERVIEW</div><h1 id="pageTitle">Good morning, Alex 👋</h1><p class="sub" id="pageSub">Here’s what needs your attention today.</p></div><div class="avatar">AM</div></header>
+
+<section class="view active" id="dashboard">
+  <div class="grid">
+    <div class="card"><div class="stat-label">Open items</div><div class="stat" id="openCount">12 <small>across team</small></div></div>
+    <div class="card"><div class="stat-label">Need attention</div><div class="stat" style="color:var(--red)" id="urgentCount">3 <small>urgent</small></div></div>
+    <div class="card"><div class="stat-label">Blocked</div><div class="stat" style="color:var(--orange)" id="blockedCount">2 <small>waiting</small></div></div>
+  </div>
+  <div class="card ai"><div class="ai-head">✦ AI DAILY BRIEF <span class="badge blue">SAMPLE SUMMARY</span></div><p id="brief">Release is on track. Unblock the API review and resolve four failing checkout tests to protect Friday’s launch.</p><div class="chips"><span class="chip">Focus: API review</span><span class="chip">Risk: checkout QA</span><span class="chip">Launch: Friday</span></div></div>
+  <div class="section-head"><h2>Priority feed</h2><button class="secondary" onclick="navigate('feed')">View all →</button></div>
+  <div class="feed" id="dashboardFeed"></div>
+</section>
+
+<section class="view" id="feed">
+  <div class="section-head"><h2>Priority feed</h2><div class="toolbar"><select id="filterStatus" onchange="renderFeed()"><option value="all">All statuses</option><option value="Blocked">Blocked</option><option value="In progress">In progress</option><option value="Todo">To do</option><option value="Done">Done</option></select><select id="filterPriority" onchange="renderFeed()"><option value="all">All priorities</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option></select></div></div>
+  <div class="feed" id="fullFeed"></div>
+</section>
+
+<section class="view" id="search">
+  <div class="section-head"><h2>Search work</h2></div>
+  <div class="card"><div class="toolbar"><input id="query" style="flex:1;min-width:220px" placeholder="Search title, owner, status or source…" oninput="renderSearch()"><button onclick="renderSearch()">Search</button></div><p class="small muted">Search across sample work items. Try “API”, “Maya” or “QA”.</p></div>
+  <div class="feed" id="searchResults" style="margin-top:12px"></div>
+</section>
+
+<section class="view" id="detail">
+  <div class="section-head"><button class="ghost" onclick="navigate('feed')">← Back to priorities</button><span class="badge blue">ITEM DETAILS</span></div>
+  <div class="detail-grid">
+    <div class="card"><div id="detailBadge"></div><div class="detail-title" id="detailTitle"></div><p id="detailDescription" class="muted"></p><div class="meta" id="detailMeta"></div><div class="toolbar"><button onclick="assignItem()">Assign</button><button class="success" onclick="markDone()">✓ Mark done</button><button class="warn" onclick="snoozeItem()">◷ Snooze</button></div></div>
+    <div class="card"><h3>Why this matters</h3><p id="detailWhy" class="muted"></p><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>Source context</h3><p id="detailSource" class="muted"></p><span class="badge blue">Mock source reference</span><p class="small muted" style="margin-top:14px">Production note: connect and verify source evidence before relying on this item.</p></div>
+  </div>
+</section>
+
+<section class="view" id="empty">
+  <div class="card empty"><div class="illustration">↻</div><h2>No items match these filters</h2><p class="muted">Try clearing filters or retry loading your team updates.</p><button onclick="resetEmpty()">Reset filters / retry</button><p class="small muted" style="margin-top:14px">This is a demonstration state, not a live connection error.</p></div>
+</section>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const initialTasks=[
+{id:1,title:"API review is waiting on approval",owner:"Maya Chen",priority:"High",status:"Blocked",due:"Today",source:"Jira · API-284",description:"The API contract review is awaiting approval from the platform team.",why:"This dependency can delay integration testing and put Friday’s launch at risk.",color:"var(--red)"},
+{id:2,title:"Checkout QA: 4 tests failing",owner:"Leo Martin",priority:"High",status:"In progress",due:"Today",source:"GitHub · PR #842",description:"Four checkout regression tests fail in the latest build.",why:"A failing checkout path can affect conversion and release confidence.",color:"var(--orange)"},
+{id:3,title:"Launch notes ready for review",owner:"Alex Morgan",priority:"Medium",status:"Todo",due:"Today",source:"Docs · Launch checklist",description:"Draft launch notes are ready for a final product review.",why:"Review is needed before the release communication is finalized.",color:"var(--blue)"},
+{id:4,title:"Design sign-off for settings page",owner:"Nina Patel",priority:"Medium",status:"In progress",due:"Tomorrow",source:"Jira · UX-119",description:"The updated settings page needs design sign-off before implementation.",why:"Late approval may cause rework in the next sprint.",color:"#845cd6"},
+{id:5,title:"Update API integration tests",owner:"Maya Chen",priority:"Low",status:"Todo",due:"Wed",source:"GitHub · PR #851",description:"Add edge-case coverage to the API integration test suite.",why:"Improves regression coverage after the API contract is approved.",color:"var(--teal)"},
+{id:6,title:"Sprint retro actions",owner:"Sam Rivera",priority:"Low",status:"Done",due:"Yesterday",source:"Slack · #team-eng",description:"Capture and assign follow-up actions from the sprint retrospective.",why:"Keeps improvement actions visible and owned.",color:"var(--teal)"}
+];
+let tasks = JSON.parse(localStorage.getItem('wrTasks')||'null') || initialTasks.map(x=>({...x}));
+let activeId=1;
+const byId=id=>tasks.find(t=>t.id===id);
+function save(){localStorage.setItem('wrTasks',JSON.stringify(tasks));updateStats();renderFeed();renderDashboard();renderSearch()}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}
+function navigate(view){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(view).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.view===view));const titles={dashboard:["Good morning, Alex 👋","Here’s what needs your attention today."],feed:["Priority feed","Ranked work items with owners, due dates and status."],search:["Search work","Find a task by title, owner, status or source."],empty:["Recovery state","An example of a helpful empty / error experience."],detail:["Work item details","Review context, then take the next action."]};document.getElementById('pageTitle').textContent=titles[view][0];document.getElementById('pageSub').textContent=titles[view][1];if(view==='feed')renderFeed();if(view==='search')renderSearch()}
+document.querySelectorAll('.nav').forEach(n=>n.addEventListener('click',()=>navigate(n.dataset.view)));
+function badgeClass(t){return t.status==='Blocked'?'red':t.status==='Done'?'green':t.priority==='High'?'red':'blue'}
+function taskCard(t){return `<div class="card task"><div class="priority-bar" style="background:${t.color}"></div><div><h3>${t.title}</h3><p>${t.owner} · ${t.due} · ${t.source}</p><div style="margin-top:7px;display:flex;gap:6px"><span class="badge ${badgeClass(t)}">${t.status}</span><span class="badge blue">${t.priority} priority</span></div></div><div class="task-actions"><button class="secondary pill-btn" onclick="openDetail(${t.id})">View details</button></div></div>`}
+function renderDashboard(){let list=tasks.filter(t=>t.status!=='Done').slice(0,3);document.getElementById('dashboardFeed').innerHTML=list.map(taskCard).join('')||'<div class="card empty">All caught up. Nice work!</div>'}
+function renderFeed(){let status=document.getElementById('filterStatus')?.value||'all',priority=document.getElementById('filterPriority')?.value||'all';let list=tasks.filter(t=>(status==='all'||t.status===status)&&(priority==='all'||t.priority===priority));document.getElementById('fullFeed').innerHTML=list.map(taskCard).join('')||'<div class="card empty">No items match these filters.</div>'}
+function renderSearch(){let q=(document.getElementById('query')?.value||'').toLowerCase();let list=tasks.filter(t=>[t.title,t.owner,t.status,t.source,t.priority].join(' ').toLowerCase().includes(q));document.getElementById('searchResults').innerHTML=list.map(taskCard).join('')||'<div class="card empty">No results. Try a different keyword.</div>'}
+function updateStats(){let open=tasks.filter(t=>t.status!=='Done').length,blocked=tasks.filter(t=>t.status==='Blocked').length,urgent=tasks.filter(t=>t.priority==='High'&&t.status!=='Done').length;document.getElementById('openCount').innerHTML=open+' <small>across team</small>';document.getElementById('blockedCount').innerHTML=blocked+' <small>waiting</small>';document.getElementById('urgentCount').innerHTML=urgent+' <small>urgent</small>';document.getElementById('brief').textContent=blocked?`Focus on ${blocked} blocked item${blocked>1?'s':''} and ${urgent} high-priority item${urgent===1?'':'s'} to keep the release moving. Review the source context before making a decision.`:'No blocked work is currently listed. Review due-soon tasks and confirm release readiness.'}
+function openDetail(id){activeId=id;const t=byId(id);if(!t)return;document.getElementById('detailBadge').innerHTML=`<span class="badge ${badgeClass(t)}">${t.status}</span> <span class="badge blue">${t.priority} priority</span>`;document.getElementById('detailTitle').textContent=t.title;document.getElementById('detailDescription').textContent=t.description;document.getElementById('detailWhy').textContent=t.why;document.getElementById('detailSource').textContent=t.source;document.getElementById('detailMeta').innerHTML=`<div><label>Owner</label><strong>${t.owner}</strong></div><div><label>Due date</label><strong>${t.due}</strong></div><div><label>Priority</label><strong>${t.priority}</strong></div><div><label>Status</label><strong>${t.status}</strong></div>`;navigate('detail')}
+function assignItem(){const t=byId(activeId);const next=prompt('Assign to (enter a name):',t.owner);if(next&&next.trim()){t.owner=next.trim();save();openDetail(activeId);toast('Assigned to '+t.owner)}}
+function markDone(){const t=byId(activeId);t.status='Done';save();openDetail(activeId);toast('Marked done')}
+function snoozeItem(){const t=byId(activeId);t.due='Tomorrow';if(t.status!=='Done')t.status='Todo';save();openDetail(activeId);toast('Snoozed until tomorrow')}
+function resetEmpty(){document.getElementById('filterStatus').value='all';document.getElementById('filterPriority').value='all';document.getElementById('query').value='';renderFeed();renderSearch();navigate('dashboard');toast('Filters reset')}
+updateStats();renderDashboard();renderFeed();renderSearch();
+</script>
+</body></html>
